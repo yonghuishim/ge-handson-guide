@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[진행자 전용] Gemini Enterprise 8단계 시연 멘트 · 예상 Q&A · 1시간</title>
+<style>
+  :root{
+    --ink:#16181d; --ink2:#3a3f4a; --muted:#6b7280; --line:#e6e8ec;
+    --bg:#f6f7f9; --card:#fff; --brand:#1a73e8; --brand2:#7b3fe4;
+    --accent:#10b981; --warn:#e8710a; --danger:#d93025; --maxw:920px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",Roboto,Arial,sans-serif;
+    line-height:1.75; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  a{color:var(--brand); text-decoration:none}
+
+  .banner{background:#3a1212; color:#ffd9d4; font-size:12.5px; text-align:center; padding:8px 12px; font-weight:700; letter-spacing:.03em}
+  .topnav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topnav .wrap{display:flex; align-items:center; gap:12px; height:52px; overflow-x:auto}
+  .topnav .brand{font-weight:800; font-size:13.5px; white-space:nowrap}
+  .topnav .links{display:flex; gap:5px; margin-left:auto}
+  .topnav a{font-size:12px; color:var(--ink2); padding:5px 9px; border-radius:999px; white-space:nowrap}
+  .topnav a:hover{background:#eef2ff; color:var(--brand)}
+
+  .hero{background:linear-gradient(180deg,#1a1320,#2a1c3a); color:#fff; padding:38px 0 32px}
+  .hero .k{font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:#c9a9ff; font-weight:700}
+  .hero h1{font-size:26px; margin:10px 0 6px; font-weight:800}
+  .hero p{margin:0; color:#e2d6f5; font-size:14.5px; max-width:680px}
+
+  section{padding:32px 0; border-bottom:1px solid var(--line)}
+  h2{font-size:20px; margin:0 0 12px; font-weight:800}
+  .lead{color:var(--ink2); font-size:14px; margin:0 0 16px; max-width:740px}
+
+  .tl{width:100%; border-collapse:separate; border-spacing:0; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden}
+  .tl th,.tl td{padding:10px 13px; text-align:left; font-size:13px; border-bottom:1px solid var(--line); vertical-align:middle}
+  .tl th{background:#f0f3f8; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink2)}
+  .tl tr:last-child td{border-bottom:none}
+  .tl .t{font-weight:800; color:var(--brand2); white-space:nowrap; width:58px}
+  .tl .s{font-weight:700}
+  .tl .dur{font-weight:800; color:var(--brand); text-align:right; white-space:nowrap; width:54px}
+
+  .seg{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-top:14px; box-shadow:0 1px 6px rgba(16,24,40,.04)}
+  .seg-h{display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line); background:linear-gradient(90deg,#fbf7ff,#f4f8ff)}
+  .seg-h .clk{background:var(--brand2); color:#fff; font-weight:800; font-size:12px; border-radius:8px; padding:5px 10px; white-space:nowrap}
+  .seg-h .tt{font-size:15.5px; font-weight:800; flex:1}
+  .seg-h .tag{font-size:11px; color:#fff; background:var(--brand); border-radius:5px; padding:2px 7px; font-weight:700; white-space:nowrap}
+  .seg-b{padding:14px 16px}
+
+  .lbl{font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--muted); margin:12px 0 7px; display:flex; gap:8px; align-items:center}
+  .lbl::before{content:""; width:16px; height:2px; background:var(--brand2); border-radius:2px}
+
+  .say{background:#f7fbff; border:1px solid #d9e8fb; border-left:4px solid var(--brand); border-radius:10px; padding:13px 15px}
+  .say p{margin:0 0 9px; font-size:14px; color:var(--ink)} .say p:last-child{margin:0}
+  .say .q{font-weight:600}
+  .stage{display:inline-block; font-size:11px; color:var(--warn); font-weight:800; background:#fff3e6; border-radius:6px; padding:1px 7px; margin-right:6px}
+
+  .do{margin-top:11px; background:#f4fff9; border:1px dashed #9fdcc0; border-radius:10px; padding:10px 13px; font-size:12.5px; color:#0b6b46}
+  .do b{color:#08593a}
+  .tip{margin-top:9px; background:#fff8ed; border:1px solid #ffe2bc; border-radius:10px; padding:10px 13px; font-size:12.5px; color:#7a4a00}
+  .tip b{color:var(--warn)}
+
+  .check{display:grid; grid-template-columns:1fr 1fr; gap:9px}
+  .check .c{background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:12.5px; display:flex; gap:9px; align-items:flex-start}
+  .check .c .box{flex:0 0 17px; height:17px; border:2px solid var(--brand2); border-radius:5px; margin-top:2px}
+
+  /* QnA */
+  .qcat{font-size:12.5px; font-weight:800; color:var(--brand2); margin:20px 0 8px; padding-bottom:5px; border-bottom:2px solid #efe7fc; letter-spacing:.02em}
+  .qa{background:#fff; border:1px solid var(--line); border-radius:11px; padding:12px 15px; margin-bottom:9px}
+  .qa .q{font-weight:700; font-size:13.7px; color:var(--ink); margin-bottom:5px}
+  .qa .q::before{content:"Q. "; color:var(--brand); font-weight:800}
+  .qa .a{font-size:13.3px; color:var(--ink2)}
+  .qa .a::before{content:"A. "; color:var(--accent); font-weight:800}
+
+  footer{padding:28px 0 54px; color:var(--muted); font-size:12px}
+  @media (max-width:760px){ .check{grid-template-columns:1fr} .topnav .links{display:none} }
+</style>
+</head>
+<body>
+<div class="banner">⚠ 진행자 전용 — 사용자에게 공유하지 마세요. (사용자 배포본은 별도: index.html 핸즈온 가이드)</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <span class="brand">🎤 진행자 멘트 · 예상 Q&amp;A</span>
+    <span class="links">
+      <a href="#tl">타임라인</a>
+      <a href="#prep">사전준비</a>
+      <a href="#script">시연 멘트</a>
+      <a href="#qna">예상 Q&amp;A</a>
+      <a href="#trouble">트러블슈팅</a>
+    </span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="k">Facilitator Only · 8-Step Demo · 60 min</div>
+    <h1>8단계 시연 멘트 &amp; 예상 Q&amp;A</h1>
+    <p>사용자 가이드(index.html)와 같은 8단계 순서입니다. 가이드를 화면에 띄우고 이 멘트대로 진행하세요. 하단에 예상 질문 리스트와 답변을 정리했습니다.</p>
+  </div>
+</header>
+
+<!-- TIMELINE -->
+<section id="tl">
+  <div class="wrap">
+    <h2>60분 타임라인</h2>
+    <p class="lead">④ 영상·⑥ Deep Research·⑦ Idea Generation은 생성이 길어 <b>미리 만든 결과</b>로 시연합니다. 밀리면 ⑦을 축소.</p>
+    <table class="tl">
+      <thead><tr><th>시각</th><th>단계</th><th>보여줄 것</th><th>예상</th></tr></thead>
+      <tbody>
+        <tr><td class="t">0:00</td><td class="s">Intro</td><td>Analytics로 2주 현황 공유</td><td class="dur">3분</td></tr>
+        <tr><td class="t">0:03</td><td class="s">① 기억</td><td>메모리 등록</td><td class="dur">2분</td></tr>
+        <tr><td class="t">0:05</td><td class="s">② 검색</td><td>최신 뉴스 + 소스 보기</td><td class="dur">4분</td></tr>
+        <tr><td class="t">0:09</td><td class="s">③ 파일</td><td>문서 요약</td><td class="dur">4분</td></tr>
+        <tr><td class="t">0:13</td><td class="s">④ 이미지·영상</td><td>Nano Banana · Veo 3 (미리 생성)</td><td class="dur">10분</td></tr>
+        <tr><td class="t">0:23</td><td class="s">⑤ NotebookLM</td><td>YouTube 링크 Q&amp;A (미리 준비)</td><td class="dur">6분</td></tr>
+        <tr><td class="t">0:29</td><td class="s">⑥ Deep Research</td><td>계획 시연 + 완성본 전환</td><td class="dur">5분</td></tr>
+        <tr><td class="t">0:34</td><td class="s">⑦ Idea Gen</td><td>Idea Map + 결과 전환</td><td class="dur">4분</td></tr>
+        <tr><td class="t">0:38</td><td class="s">⑧ Agent</td><td>일일 브리핑 봇 생성</td><td class="dur">8분</td></tr>
+        <tr><td class="t">0:46</td><td class="s">Wrap-up &amp; Q&amp;A</td><td>요약 · 적용 질문 · 질의응답</td><td class="dur">6분</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PREP -->
+<section id="prep">
+  <div class="wrap">
+    <h2>사전 준비 체크리스트</h2>
+    <div class="check">
+      <div class="c"><span class="box"></span><div><b>Chrome 시크릿창</b> 조직 계정 로그인 (Ctrl+Shift+N)</div></div>
+      <div class="c"><span class="box"></span><div><b>Analytics 화면</b> 미리 띄우기 (Intro용)</div></div>
+      <div class="c"><span class="box"></span><div><b>③ 요약용 문서</b> 1개 준비 (비민감)</div></div>
+      <div class="c"><span class="box"></span><div><b>④ Veo 3 영상</b> 최소 1클립 미리 생성</div></div>
+      <div class="c"><span class="box"></span><div><b>⑤ NotebookLM</b> YouTube 3개 링크 미리 추가·처리</div></div>
+      <div class="c"><span class="box"></span><div><b>⑥ Deep Research / ⑦ Idea</b> 완성 결과 미리 생성</div></div>
+      <div class="c"><span class="box"></span><div><b>복사용 프롬프트</b> 메모장 정리 (현장 타이핑 금지)</div></div>
+      <div class="c"><span class="box"></span><div><b>사용자 가이드(index.html)</b> 큰 화면에 띄우기</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT -->
+<section id="script">
+  <div class="wrap"><h2>8단계 시연 멘트 (풀 스크립트)</h2></div>
+
+  <!-- INTRO -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">0:00</span><span class="tt">Intro — 우리 회사 사용 현황</span><span class="tag">Analytics</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">화면</span>Analytics(Value/Usage)를 띄운 채 시작.</p>
+        <p class="q">"오늘은 새 기능을 가르치는 게 아니라, 여러분이 이미 만든 결과를 더 잘 쓰는 법을 콘솔에서 직접 보여드리는 자리입니다. 지난 2주간 절약한 시간이 232시간, 약 1,741만 원이에요. 이미 에이전트까지 만들고 계셨고요. 오늘은 8가지 기능을 순서대로 보겠습니다. 한 줄만 기억하세요 — Gemini는 검색 도구가 아니라 '내 업무 파트너'입니다."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">①</span><span class="tt">나를 기억시키기</span><span class="tag">Chat · Memory</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p class="q">"먼저 자기소개를 한 번 등록해 둘게요. IT팀이고 자동차 트렌드에 관심 많고 보고서 형식을 선호한다고요. 이걸 기억시키면, 다음 질문부터 자동으로 그 톤으로 답합니다. 매번 설명할 필요가 없어지는 거죠. 바로 다음 단계에서 효과를 보여드릴게요."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "한 번 등록 → 이후 모든 대화에 자동 반영." 다음 단계와 연결 예고.</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">②</span><span class="tt">검색 그라운딩 · 소스 보기</span><span class="tag">Chat · 🌐</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">조작</span>🌐 ON → "관심 뉴스 알려주세요" → '소스 보기' 클릭.</p>
+        <p class="q">"검색을 켜고 그냥 '관심 있을 만한 뉴스 알려줘'라고만 했는데 — 보세요, 아까 IT·자동차라고 기억시킨 걸 반영해서 딱 맞는 뉴스를 골라줍니다. 메모리가 진짜 작동하죠. 그리고 여기서 끝이 아니라 '소스 보기'를 누르면 근거 원문이 떠요. AI 말을 믿는 게 아니라 출처로 확인하는 겁니다."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "검색·정리 반나절 → 1분, 게다가 '나에게 맞춘' 뉴스."</div>
+      <div class="tip"><b>주의 안내.</b> 검색을 켜야 소스 버튼이 생긴다는 점을 분명히.</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">③</span><span class="tt">파일 첨부 · 요약</span><span class="tag">Chat · 📎</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p class="q">"이번엔 제 문서를 직접 올려보겠습니다. 클립 아이콘으로 파일 넣고 '요약 정리해줘' 한 줄. 긴 문서를 다 안 읽고도 핵심이 보고서 톤으로 정리됩니다. 마음에 안 들면 '표로 바꿔줘', '더 짧게'처럼 이어서 다듬으면 돼요."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "긴 문서 → 30초 요지 파악."</div>
+      <div class="tip"><b>주의 안내.</b> 민감·고객정보 문서 업로드 금지.</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">④</span><span class="tt">이미지(Nano Banana) · 영상(Veo 3)</span><span class="tag">Chat</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">조작</span>이미지 프롬프트 1~2개 생성 → 자연어 편집 → (미리 만든) Veo 3 영상 재생.</p>
+        <p class="q">"발표나 광고 비주얼, 디자인 못 해도 됩니다. '트렌드에 맞는 자동차 이미지 만들어줘' — 30초면 시안이 나와요. '색을 더 따뜻하게', '텍스트 빼줘'처럼 말로 고칩니다. 영상도 됩니다. Veo 3는 6~10초 시네마틱 클립을 음향까지 입혀서 만드는데, 생성에 몇 분 걸려서 미리 만들어 온 걸 보여드릴게요. (재생) 광고 시안을 이렇게 분 단위로 뽑는 겁니다."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "디자인·영상 외주 없이 머릿속 장면을 분 단위 시안화."</div>
+      <div class="tip"><b>주의 안내.</b> 실존 인물·브랜드 로고·타사 디자인 합성 금지 — 가상 차량으로 시연.</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">⑤</span><span class="tt">NotebookLM · YouTube 링크 Q&amp;A</span><span class="tag">NotebookLM</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">조작</span>미리 만든 노트북(YouTube 3개 처리됨)에서 비교 질문 시연.</p>
+        <p class="q">"NotebookLM엔 문서뿐 아니라 YouTube 링크도 넣을 수 있어요. 영상 3개를 넣어두면, 다 볼 필요 없이 '핵심 비교해서 정리해줘' 한 번에 끝납니다. 중요한 건 — 일반 채팅과 달리 '내가 넣은 자료 안에서만' 답하고 출처까지 짚어줘요. 스튜디오로 오디오 요약도 만들 수 있고요."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "영상 3개를 다 볼 필요 없이, 자료 한정 신뢰 답변."</div>
+      <div class="tip"><b>시연 팁.</b> 링크 처리 시간 때문에 노트북은 미리 준비.</div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">⑥</span><span class="tt">Deep Research · 시장 보고서</span><span class="tag">Deep Research</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">조작</span>주제 입력 → '연구 계획' 화면 → (미리 만든) 완성 보고서로 전환.</p>
+        <p class="q">"이건 임원 보고용 시장 조사예요. '26년 1분기 전기 SUV 시장, 규모·Top5 전략·KGM 시사점 보고서로 써줘'. 바로 답하지 않고 먼저 '연구 계획'을 보여줍니다. 우리가 검토·수정하고 Start. 실제론 30분~1시간 걸리니, 미리 만든 완성본을 보여드릴게요. 여러분은 그 시간에 다른 일을 하면 됩니다."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "사람 손으로 며칠 걸릴 시장 조사를 자동으로, 출처까지."</div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">⑦</span><span class="tt">Idea Generation · 컨셉 발상</span><span class="tag">Idea Generation</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">조작</span>주제 입력 → Idea Map → (미리 만든) 순위화 결과 → "한국어로 번역해줘".</p>
+        <p class="q">"브레인스토밍도 혼자 됩니다. 그런데 무작위로 쏟는 게 아니라, '어떤 관점으로 발상할지'를 지도로 먼저 제안해요. 승인하면 수십 개를 점수로 순위까지 매겨줍니다. 영문으로 나오니 '한국어로 번역해줘'만 붙이면 되고요. 내 아이디어에 AI를 더해 폭을 넓히는 거죠."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "혼자 5개 → 관점별 수십 개 순위화."</div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">⑧</span><span class="tt">No-Code Agent · 일일 브리핑 봇</span><span class="tag">Agents</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p><span class="stage">조작</span>Agents → 새 에이전트 → 입력/처리/출력 정의 → 실행/스케줄.</p>
+        <p class="q">"오늘의 하이라이트입니다. 코딩 한 줄 없이, '매일 아침 KGM 신차·전기차 뉴스 3개 검색 → 요약 → 문서 생성해줘'라고 쓰면 봇이 만들어져요. 입력·처리·출력 세 단계로 나눠서 정의하면 더 정확하고요. 이름 붙이고 스케줄 걸면 매일 아침 브리핑이 자동으로 옵니다. 이게 'AI를 쓴다'를 넘어 'AI를 관리한다'는 단계예요. 오늘 딱 하나는 이름 붙여 완성해 가세요."</p>
+      </div>
+      <div class="do"><b>효능감.</b> "반복 업무가 내 손을 떠난다. 다음 달 Action 숫자가 0이 아닐 겁니다."</div>
+      <div class="tip"><b>주의 안내.</b> 민감정보 자동 처리 에이전트 금지.</div>
+    </div>
+  </div>
+
+  <!-- WRAP -->
+  <div class="seg">
+    <div class="seg-h"><span class="clk">0:46</span><span class="tt">Wrap-up &amp; Q&amp;A</span></div>
+    <div class="seg-b">
+      <div class="say">
+        <p class="q">"오늘 8가지를 봤습니다. 검색·요약부터 이미지·영상, 보고서, 발상, 그리고 나만의 자동화 봇까지. 공통점은 하나 — Gemini는 검색 도구가 아니라 여러분의 업무 파트너입니다. '오늘 만든 브리핑 봇처럼, 지금 자동화하고 싶은 내 업무는 무엇인가?' 그 하나를 이번 주에 만들어 보세요. 방금 본 모든 프롬프트는 이 가이드에 들어 있고, 끝나고 링크로 공유드립니다. 질문 받겠습니다."</p>
+      </div>
+      <div class="do"><b>마무리 액션.</b> 사용자에게 index.html 링크 배포 + 넥스트 스텝(오늘/이번주/이번달) 안내.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QnA -->
+<section id="qna">
+  <div class="wrap">
+    <h2>예상 질문 리스트 (Q&amp;A 준비)</h2>
+    <p class="lead">교육 중·후 자주 나오는 질문과 진행자용 답변입니다. 정책·용량 등 수치는 사내 기준/공식 문서로 한 번 더 확인하세요.</p>
+
+    <div style="background:#fff7f3; border:1px solid #f6d4c2; border-radius:12px; padding:6px 15px 14px; margin-bottom:20px">
+      <div class="qcat" style="color:#c2410c; border-bottom-color:#f6d4c2">🔥 우리 2주 데이터로 본 예상 질문 (우선 대응)</div>
+      <div class="qa"><div class="q">출처가 자꾸 틀리거나 엉뚱한 걸 인용해요. 못 믿겠는데요?</div><div class="a">대부분 검색 그라운딩(🌐)을 끈 상태에서 답해 생깁니다. 켜야 출처가 붙고 '소스 보기'가 생깁니다. 사내 자료 정확도는 NotebookLM(자료 한정 인용)으로 받으세요.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: 불만(Dislike) 1위가 'Bad Citation' 82%, 검색 CTR 0% — 가장 많이 나올 질문</span></div></div>
+      <div class="qa"><div class="q">에이전트를 만들었는데 실제로 실행이 안 돼요. 매일 자동 실행은요?</div><div class="a">자연어로 입력·처리·출력을 정의하고, 도구(generate_document 등)를 지정한 뒤 스케줄(예: 매일 09:00)을 걸면 자동 실행됩니다.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: Action 실행 2주간 0건인데 에이전트는 26개 생성 — 만들고 못 굴린 상태</span></div></div>
+      <div class="qa"><div class="q">만든 에이전트가 '내 에이전트'로 잔뜩인데 뭐가 뭔지 모르겠어요.</div><div class="a">이름을 붙여 완성·저장해야 재사용됩니다. 이름 없는 미완성은 0의 가치 — 목록에서 정리하고 재사용하세요.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: 이름 없는 '내 에이전트' 중복 다수</span></div></div>
+      <div class="qa"><div class="q">만든 노트북을 팀과 공유할 수 있나요? 오디오 요약은요?</div><div class="a">공유 링크로 팀에 전파할 수 있고, 스튜디오에서 오디오 개요를 생성할 수 있습니다. 둘 다 거의 안 쓰여 강조 가치가 큽니다.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: NotebookLM 노트북 71개 생성, 공유 0건·오디오 0건</span></div></div>
+      <div class="qa"><div class="q">검색이 잘 안 되는 것 같아요. 사내 자료는 검색이 왜 안 되죠?</div><div class="a">웹 검색은 🌐 토글, 사내 자료는 NotebookLM·연동 커넥터로 분리됩니다. 용도에 맞는 경로를 안내하세요.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: 검색 성공률 0% — 검색 기능을 의도대로 못 쓰는 사용자 많음</span></div></div>
+      <div class="qa"><div class="q">(분석에 밝은 분) 검색 성공률이 0%던데, 이거 문제 아닌가요?</div><div class="a">답변 성공률(96%)이 높으면 검색 성공률·CTR은 낮게 나오는 구조입니다(답으로 바로 해결돼 검색결과 클릭이 불필요). 결함이 아니라 '답으로 해결됐다'는 신호입니다.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: 답변 96% vs 검색 0% — 대시보드 주석도 동일 설명</span></div></div>
+      <div class="qa"><div class="q">이걸 제 실제 업무에 어떻게 더 쓰죠?</div><div class="a">오늘 8단계 중 본인 직무에 가까운 1개를 골라 이번 주 실무에 적용하고, 반복 업무는 에이전트로 자동화하도록 안내하세요.<span style="display:block;margin-top:5px;color:#b4541f;font-size:12px;font-weight:600">📊 데이터: 232시간 절약했지만 활용이 검색·요약에 편중 — 적용 확장이 핵심</span></div></div>
+    </div>
+
+    <div class="qcat">접속 · 계정 · 보안</div>
+    <div class="qa"><div class="q">개인 Google 계정으로도 쓸 수 있나요?</div><div class="a">아니요. 반드시 회사 조직 계정으로만 접속합니다. 기존 개인 계정과 충돌이 나면 Chrome 시크릿창(Ctrl+Shift+N)으로 접속하세요.</div></div>
+    <div class="qa"><div class="q">제가 입력한 내용이나 올린 파일이 구글의 AI 학습에 쓰이나요?</div><div class="a">엔터프라이즈 환경은 고객 데이터를 기반 모델 학습에 사용하지 않도록 분리·관리됩니다. 다만 정책상 민감·고객정보 입력 자체를 금지합니다. 구체 약관은 사내 보안 기준을 따르세요.</div></div>
+    <div class="qa"><div class="q">사용 내역이 로그로 남고 감사 대상인가요?</div><div class="a">네, 접근·사용 로깅과 보안 통제(VPC-SC 등)가 적용됩니다. 보안 정책 우회 시도는 감사 대상입니다.</div></div>
+    <div class="qa"><div class="q">우리 부서/직무엔 안 맞는 것 같은데요?</div><div class="a">그 자리에서 실제 업무 1개를 받아 즉석 프롬프트로 시연해 보여주는 게 가장 강력한 설득입니다. 검색·요약·문서 초안은 거의 모든 직무에 적용됩니다.</div></div>
+
+    <div class="qcat">메모리 (Saved Memory)</div>
+    <div class="qa"><div class="q">기억시킨 내용은 어디 저장되고, 지울 수 있나요?</div><div class="a">개인 Saved Memory에 저장되며 설정에서 확인·수정·삭제할 수 있습니다. 개인 단위라 동료에게 공유되지 않습니다.</div></div>
+    <div class="qa"><div class="q">민감한 내 정보를 기억시켜도 되나요?</div><div class="a">안 됩니다. 주민번호·고객정보·인증정보 등은 메모리에 저장 금지입니다. 직무·관심사·선호 톤 같은 비민감 정보만 등록하세요.</div></div>
+
+    <div class="qcat">검색 그라운딩 · 출처</div>
+    <div class="qa"><div class="q">'소스 보기' 버튼이 안 보여요.</div><div class="a">검색 그라운딩(🌐)이 OFF면 안 나옵니다. 토글을 켜면 답변에 출처가 붙고 소스 버튼이 생깁니다.</div></div>
+    <div class="qa"><div class="q">출처가 틀리거나 엉뚱하면요?</div><div class="a">AI는 환각(그럴듯한 오답)이 있을 수 있습니다. 그래서 중요한 답은 반드시 '소스 보기'로 원문을 확인하고, 핵심 의사결정은 사람이 확정합니다.</div></div>
+    <div class="qa"><div class="q">사내 자료도 검색되나요?</div><div class="a">웹 검색과 별개로, 사내 자료는 NotebookLM이나 연동된 커넥터(데이터 스토어)를 통해 활용합니다.</div></div>
+
+    <div class="qcat">파일 첨부</div>
+    <div class="qa"><div class="q">어떤 형식·몇 개까지 올릴 수 있나요?</div><div class="a">PDF·DOCX·XLSX·이미지 등 일반 문서 형식을 여러 개 올릴 수 있습니다. 용량·개수 제한은 사내 안내/공식 문서 기준을 확인하세요.</div></div>
+    <div class="qa"><div class="q">긴 문서도 정확히 요약되나요?</div><div class="a">네. 다만 핵심 누락이 걱정되면 "근거 위치도 표시해줘"를 덧붙여 인용을 함께 받으면 검증이 쉽습니다.</div></div>
+
+    <div class="qcat">이미지(Nano Banana) · 영상(Veo 3)</div>
+    <div class="qa"><div class="q">생성한 이미지·영상을 실제 업무/대외에 써도 되나요?</div><div class="a">내부 시안·아이디어 용도로 적합합니다. 대외 사용은 사내 콘텐츠 정책을 따르고, 실존 인물·타사 로고·브랜드 디자인 합성은 저작권·초상권 문제로 금지입니다.</div></div>
+    <div class="qa"><div class="q">우리 실제 차종으로 만들 수 있나요?</div><div class="a">자사 IP·실차 이미지 합성은 별도 검토가 필요합니다. 시연·실습은 가상 차량 콘셉트로 진행하세요.</div></div>
+    <div class="qa"><div class="q">영상은 얼마나 길고 오래 걸리나요?</div><div class="a">Veo 3는 보통 6~10초 클립이며 생성에 1~3분 걸립니다. 음성·효과음도 함께 입혀집니다.</div></div>
+    <div class="qa"><div class="q">한국어 프롬프트도 되나요?</div><div class="a">됩니다. 다만 이미지·영상은 영어 프롬프트가 디테일(렌즈·조명·톤) 제어에 더 유리할 때가 많습니다.</div></div>
+
+    <div class="qcat">NotebookLM</div>
+    <div class="qa"><div class="q">YouTube 링크가 안 들어가요/답을 못 해요.</div><div class="a">공개·자막 있는 영상이어야 하고, 링크 추가 후 처리에 시간이 걸립니다. 미리 추가해 두면 안정적입니다.</div></div>
+    <div class="qa"><div class="q">일반 채팅과 뭐가 다른가요?</div><div class="a">NotebookLM은 '업로드한 자료 안에서만' 답합니다. 외부 정보가 섞이지 않아 '우리 자료 기반' 답이 필요할 때 안전하고, 출처(인용)를 짚어줍니다.</div></div>
+
+    <div class="qcat">Deep Research · Idea Generation</div>
+    <div class="qa"><div class="q">왜 이렇게 오래 걸리나요(30분~1시간)?</div><div class="a">여러 자료를 검색·교차검증해 보고서를 구성하기 때문입니다. 백그라운드로 돌려두고 다른 일을 하면 됩니다.</div></div>
+    <div class="qa"><div class="q">사내 자료와 웹을 함께 종합할 수 있나요?</div><div class="a">네. 첨부 자료 + 외부 최신 정보를 함께 종합해 보고서로 만들 수 있습니다. 결과는 출처로 검증하세요.</div></div>
+    <div class="qa"><div class="q">Idea Generation은 왜 영문으로 나오나요?</div><div class="a">현재 영문 출력 기준입니다. "한국어로 번역해줘" 후속 지시로 변환하면 됩니다.</div></div>
+
+    <div class="qcat">No-Code Agent</div>
+    <div class="qa"><div class="q">정말 코딩이 필요 없나요?</div><div class="a">네. '무엇·언제·어디로'를 자연어로 쓰면 됩니다. 입력·처리·출력 3단계로 나눠 쓰면 더 정확합니다.</div></div>
+    <div class="qa"><div class="q">generate_document 같은 '도구'가 뭔가요?</div><div class="a">에이전트가 작업을 수행할 때 호출하는 액션(문서 생성, 검색 등)입니다. 자연어로 지시하면 적절한 도구를 골라 실행합니다.</div></div>
+    <div class="qa"><div class="q">매일 아침 자동 실행은 어떻게 하나요?</div><div class="a">에이전트에 스케줄(예: 매일 09:00)을 설정하면 정해진 시각에 자동 실행됩니다.</div></div>
+    <div class="qa"><div class="q">만든 에이전트를 팀과 공유할 수 있나요?</div><div class="a">권한 설정에 따라 공유할 수 있습니다. 단, 민감정보를 자동 처리하는 에이전트는 만들지 마세요.</div></div>
+  </div>
+</section>
+
+<!-- TROUBLE -->
+<section id="trouble">
+  <div class="wrap">
+    <h2>트러블슈팅</h2>
+    <table class="tl">
+      <thead><tr><th>상황</th><th>즉시 대응</th></tr></thead>
+      <tbody>
+        <tr><td class="s">로그인 충돌</td><td>시크릿창(Ctrl+Shift+N) 재접속, 조직 계정만 사용.</td></tr>
+        <tr><td class="s">소스 버튼 없음</td><td>검색 그라운딩(🌐) OFF 상태. ON으로 켜기.</td></tr>
+        <tr><td class="s">영상/Research 느림</td><td>정상(수 분~1시간). 미리 만든 결과로 전환.</td></tr>
+        <tr><td class="s">YouTube 처리 안 됨</td><td>공개·자막 영상인지 확인, 미리 추가해 두기.</td></tr>
+        <tr><td class="s">답이 사실과 다름</td><td>환각 인정 → '소스 보기' 검증 습관으로 전환.</td></tr>
+        <tr><td class="s">시간 부족</td><td>⑦ Idea Gen·④ 영상을 축소, ①②③⑧ 사수.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">KG MOBILITY × LG CNS · Gemini Enterprise — [진행자 전용] 8단계 시연 멘트 &amp; 예상 Q&amp;A · v2.0 · CONFIDENTIAL</div>
+</footer>
+
+</body>
+</html>
