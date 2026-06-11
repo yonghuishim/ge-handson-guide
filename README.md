@@ -11,7 +11,6 @@
 | 파일 | 용도 | 공유 |
 |------|------|------|
 | `index.html` | 사용자 핸즈온 가이드 (배포본) | ✅ 사용자에게 공유 |
-| `facilitator-script.html` | 진행자 멘트 스크립트 | ⛔ 진행자 전용 |
 | `.nojekyll` | GitHub Pages 서빙용 빈 파일 | — |
 | `README.md` | 이 문서 | — |
 
