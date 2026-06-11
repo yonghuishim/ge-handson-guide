@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gemini Enterprise 사용자 핸즈온 가이드 · KGM × LG CNS</title>
+<title>Gemini Enterprise 데모 시나리오 · 핸즈온 가이드 · KGM × LG CNS</title>
 <style>
   :root{
     --ink:#16181d; --ink2:#3a3f4a; --muted:#6b7280; --line:#e6e8ec;
     --bg:#f6f7f9; --card:#ffffff; --brand:#1a73e8; --brand2:#7b3fe4;
     --accent:#10b981; --warn:#e8710a; --danger:#d93025;
     --chip:#eef2ff; --code-bg:#1e2128; --code-ink:#e8eaed;
-    --before:#9aa3af; --before-bg:#f3f4f6;
-    --maxw:1000px;
+    --before:#9aa3af; --before-bg:#f3f4f6; --maxw:1000px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -25,17 +24,17 @@
     backdrop-filter:saturate(160%) blur(8px); border-bottom:1px solid var(--line);}
   .topnav .wrap{display:flex; align-items:center; gap:14px; height:56px; overflow-x:auto}
   .topnav .brand{font-weight:800; font-size:14px; white-space:nowrap; color:var(--ink)}
-  .topnav .links{display:flex; gap:6px; margin-left:auto}
-  .topnav a{font-size:12.5px; color:var(--ink2); padding:6px 11px; border-radius:999px; white-space:nowrap}
+  .topnav .links{display:flex; gap:5px; margin-left:auto}
+  .topnav a{font-size:12.5px; color:var(--ink2); padding:6px 10px; border-radius:999px; white-space:nowrap}
   .topnav a:hover{background:var(--chip); color:var(--brand)}
 
   .hero{background:
       radial-gradient(1100px 380px at 12% -10%, rgba(26,115,232,.16), transparent 60%),
       radial-gradient(900px 360px at 95% 0%, rgba(123,63,228,.14), transparent 55%),
       linear-gradient(180deg,#0d1b3e 0%, #122a55 100%);
-    color:#fff; padding:54px 0 46px;}
+    color:#fff; padding:52px 0 44px;}
   .hero .kicker{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:#9fc2ff; font-weight:700}
-  .hero h1{font-size:33px; line-height:1.25; margin:12px 0 8px; font-weight:800; letter-spacing:-.01em}
+  .hero h1{font-size:32px; line-height:1.25; margin:12px 0 8px; font-weight:800; letter-spacing:-.01em}
   .hero p.sub{font-size:16px; color:#d6e2ff; margin:0 0 14px; max-width:700px}
   .hero .partner{display:inline-block; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22);
     color:#eaf1ff; font-size:13.5px; padding:8px 14px; border-radius:10px; margin:6px 0 18px; font-weight:600;}
@@ -43,14 +42,24 @@
   .hero .meta{display:flex; flex-wrap:wrap; gap:10px}
   .hero .pill{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
     color:#eaf1ff; font-size:13px; padding:7px 13px; border-radius:999px; font-weight:600;}
-  .hero .confid{margin-top:20px; font-size:11.5px; color:#9bb4e6; letter-spacing:.04em}
+  .hero .confid{margin-top:18px; font-size:11.5px; color:#9bb4e6; letter-spacing:.04em}
 
-  section{padding:42px 0; border-bottom:1px solid var(--line)}
+  section{padding:40px 0; border-bottom:1px solid var(--line)}
   .sec-tag{display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
     color:var(--brand); font-weight:800; margin-bottom:8px;}
-  h2{font-size:24px; margin:0 0 6px; font-weight:800; letter-spacing:-.01em}
+  h2{font-size:23px; margin:0 0 6px; font-weight:800; letter-spacing:-.01em}
   h2 .em{color:var(--brand)}
-  .lead{color:var(--ink2); font-size:15.5px; margin:6px 0 22px; max-width:780px}
+  .lead{color:var(--ink2); font-size:15px; margin:6px 0 20px; max-width:780px}
+
+  /* timeline overview */
+  .tl{width:100%; border-collapse:separate; border-spacing:0; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden}
+  .tl th,.tl td{padding:11px 13px; text-align:left; font-size:13.5px; border-bottom:1px solid var(--line); vertical-align:middle}
+  .tl th{background:#f0f3f8; font-size:11.5px; letter-spacing:.04em; color:var(--ink2); text-transform:uppercase}
+  .tl tr:last-child td{border-bottom:none}
+  .tl .t{font-weight:800; color:var(--brand); white-space:nowrap; width:64px}
+  .tl .s{font-weight:700}
+  .tl .dur{white-space:nowrap; font-weight:700; color:var(--brand2); text-align:right; width:62px}
+  .tl tr.sum td{background:#faf7ff; font-weight:800}
 
   /* console map */
   .console{background:#0e1726; border-radius:16px; padding:18px; display:grid; grid-template-columns:200px 1fr; gap:14px}
@@ -68,56 +77,43 @@
   .legend span{font-size:12.5px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:999px; padding:5px 12px}
   .legend b{color:var(--brand)}
 
-  /* level band */
-  .levelband{display:flex; align-items:center; gap:14px; margin:6px 0 16px}
-  .levelband .badge{background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff;
-    font-weight:800; font-size:13px; border-radius:10px; padding:9px 14px; white-space:nowrap}
-  .levelband .ttl{font-size:21px; font-weight:800}
-  .levelband .sub{font-size:13px; color:var(--muted)}
-
-  /* feature card */
+  /* step card */
   .fc{background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden;
-    margin-top:20px; box-shadow:0 2px 10px rgba(16,24,40,.04);}
-  .fc-head{display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--line);
+    margin-top:18px; box-shadow:0 2px 10px rgba(16,24,40,.04);}
+  .fc-head{display:flex; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid var(--line);
     background:linear-gradient(90deg,#f4f8ff,#fbf7ff);}
-  .fc-head .pn{background:var(--brand); color:#fff; font-weight:800; font-size:12.5px; border-radius:8px; padding:5px 10px; white-space:nowrap}
+  .fc-head .pn{background:var(--brand); color:#fff; font-weight:800; font-size:13px; border-radius:9px; padding:6px 11px; white-space:nowrap}
   .fc-head .pt{font-size:16.5px; font-weight:800; flex:1}
-  .fc-head .gain{background:#e7f9f0; color:#0b6b46; border:1px solid #b7ebd3; font-weight:800; font-size:12.5px; border-radius:999px; padding:5px 12px; white-space:nowrap}
+  .fc-head .time{background:#f1ecff; color:#5b2bd6; border:1px solid #ddd0fb; font-weight:800; font-size:12.5px; border-radius:999px; padding:5px 12px; white-space:nowrap}
   .fc-body{padding:18px}
 
   .loc{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink2);
     background:#f0f4ff; border:1px solid #d9e3ff; border-radius:8px; padding:6px 11px; margin-bottom:14px; font-weight:600}
   .loc b{color:var(--brand)}
 
-  .ba{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:6px}
-  .ba .side{border-radius:12px; padding:14px 16px; border:1px solid var(--line)}
-  .ba .before{background:var(--before-bg); border-color:#e3e6ea}
-  .ba .after{background:#f3fbff; border:1px solid #c5e6fb}
-  .ba .tag{font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; display:inline-block}
-  .ba .before .tag{color:var(--before)} .ba .after .tag{color:var(--brand)}
-  .ba .side .h{font-weight:700; font-size:14px; margin-bottom:6px; color:var(--ink)}
-  .ba .side p{margin:0; font-size:13px; color:var(--ink2)} .ba .before .h{color:#5b6470}
-  .ba .arrow{align-self:center; text-align:center; font-size:20px; color:var(--brand); font-weight:800}
-
   .lbl{font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:800; color:var(--muted);
-    margin:18px 0 8px; display:flex; align-items:center; gap:8px;}
+    margin:16px 0 8px; display:flex; align-items:center; gap:8px;}
   .lbl::before{content:""; width:18px; height:2px; background:var(--brand); display:inline-block; border-radius:2px}
 
   ol.steps{counter-reset:s; list-style:none; margin:0; padding:0}
-  ol.steps li{position:relative; padding:10px 12px 10px 44px; border:1px solid var(--line); border-radius:10px;
-    margin-bottom:8px; background:#fff; font-size:14px;}
+  ol.steps li{position:relative; padding:9px 12px 9px 42px; border:1px solid var(--line); border-radius:10px;
+    margin-bottom:7px; background:#fff; font-size:13.7px;}
   ol.steps li::before{counter-increment:s; content:counter(s);
-    position:absolute; left:10px; top:10px; width:24px; height:24px; border-radius:50%;
-    background:var(--brand); color:#fff; font-weight:800; font-size:12.5px; display:flex; align-items:center; justify-content:center;}
+    position:absolute; left:9px; top:9px; width:23px; height:23px; border-radius:50%;
+    background:var(--brand); color:#fff; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center;}
   ol.steps li b{color:var(--ink)} ol.steps li .note{color:var(--muted); font-size:12.5px}
 
   .prompt{background:var(--code-bg); color:var(--code-ink); border-radius:10px; padding:13px 15px;
-    font-size:13.5px; line-height:1.6; margin:10px 0; position:relative;
-    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;}
+    font-size:13.3px; line-height:1.6; margin:10px 0; position:relative;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; white-space:pre-wrap; word-break:break-word;}
   .prompt .tag{position:absolute; top:-9px; left:12px; background:var(--brand2); color:#fff;
-    font-size:10px; font-weight:700; letter-spacing:.1em; padding:2px 8px; border-radius:6px; font-family:inherit;}
+    font-size:10px; font-weight:700; letter-spacing:.08em; padding:2px 8px; border-radius:6px; font-family:inherit;}
   .prompt .you{color:#86efac}
-  .prompt .more{display:block; margin-top:8px; padding-top:8px; border-top:1px solid #33384200; border-top:1px dashed #3a4150; color:#cbd3e0; font-size:12.5px}
+  .prompt.en{font-size:12.5px; color:#d6deea}
+  .prompt.en .tag{background:#2563c9}
+
+  .plabel{font-size:12.5px; font-weight:700; color:var(--ink2); margin:14px 0 2px}
+  .plabel .ko{color:var(--brand)}
 
   .result{margin-top:14px; background:#f4fff9; border:1px solid #bfe9d4; border-radius:12px; padding:13px 15px}
   .result .rt{font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:800; color:#0b6b46; margin-bottom:7px}
@@ -139,14 +135,13 @@
   .next .n .w{font-size:11.5px; font-weight:800; color:var(--brand); letter-spacing:.08em; text-transform:uppercase}
   .next .n p{margin:6px 0 0; font-size:13.5px; color:var(--ink2)}
 
-  footer{padding:34px 0 60px; color:var(--muted); font-size:12.5px}
+  footer{padding:32px 0 58px; color:var(--muted); font-size:12.5px}
   footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px}
 
   @media (max-width:760px){
     .dd,.next{grid-template-columns:1fr}
-    .ba{grid-template-columns:1fr} .ba .arrow{transform:rotate(90deg)}
     .console{grid-template-columns:1fr}
-    .hero h1{font-size:26px} .topnav .links{display:none}
+    .hero h1{font-size:25px} .topnav .links{display:none}
   }
 </style>
 </head>
@@ -156,42 +151,58 @@
   <div class="wrap">
     <span class="brand">KGM × LG CNS · Gemini Enterprise</span>
     <span class="links">
-      <a href="#start">시작 1분</a>
-      <a href="#map">콘솔 화면</a>
-      <a href="#l1">Level 1</a>
-      <a href="#l2">Level 2</a>
-      <a href="#l3">Level 3</a>
-      <a href="#safety">안전</a>
-      <a href="#next">다음 스텝</a>
+      <a href="#flow">전체 흐름</a>
+      <a href="#map">콘솔</a>
+      <a href="#s1">①기억</a>
+      <a href="#s2">②검색</a>
+      <a href="#s3">③파일</a>
+      <a href="#s4">④이미지·영상</a>
+      <a href="#s5">⑤NotebookLM</a>
+      <a href="#s6">⑥Research</a>
+      <a href="#s7">⑦Idea</a>
+      <a href="#s8">⑧Agent</a>
     </span>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">Hands-on Guide · 따라하면 됩니다</div>
-    <h1>Gemini Enterprise<br>사용자 핸즈온 가이드</h1>
-    <p class="sub">콘솔 화면을 보며 기능 하나하나를 <b>"내 업무에 이렇게 씁니다"</b>로 정리했습니다. 각 카드의 프롬프트를 그대로 복사해 바로 따라 해보세요.</p>
+    <div class="kicker">Demo Scenario · 8 Steps · Hands-on Guide</div>
+    <h1>Gemini Enterprise<br>데모 시나리오 &amp; 핸즈온 가이드</h1>
+    <p class="sub">콘솔에서 8개 기능을 순서대로 시연하는 시나리오입니다. 각 단계의 프롬프트를 그대로 복사해 따라 하면 됩니다.</p>
     <div class="partner">기억할 한 줄 — Gemini Enterprise는 검색 도구가 아니라 <b>'내 업무 파트너'</b>입니다.</div>
     <div class="meta">
       <span class="pill">📋 프롬프트 그대로 복사</span>
-      <span class="pill">🖥 콘솔 위치 안내 포함</span>
-      <span class="pill">⏱ 기능별 '얼마나 빨라지나'</span>
-      <span class="pill">🎯 Level 1 → 2 → 3</span>
+      <span class="pill">⏱ 단계별 예상 시간 표기</span>
+      <span class="pill">🖥 콘솔 위치 안내</span>
+      <span class="pill">🎯 8단계 데모</span>
     </div>
     <div class="confid">KG MOBILITY × LG CNS Google Cloud팀 · CONFIDENTIAL</div>
   </div>
 </header>
 
-<!-- START IN 1 MIN -->
-<section id="start">
+<!-- FLOW / TIMELINE -->
+<section id="flow">
   <div class="wrap">
-    <span class="sec-tag">시작 전 1분</span>
-    <h2>나를 기억시키기 <span class="em">(한 번만 등록)</span></h2>
-    <p class="lead">본격 시작 전에 자기소개를 한 번만 등록해 두면, 이후 모든 대화에 내 직무·관심사·선호 톤이 자동 반영됩니다. 매번 같은 설명을 반복할 필요가 없어집니다.</p>
-    <div class="loc">📍 위치 — <b>입력창에 그대로 입력</b> (Saved Memory에 자동 저장)</div>
-    <div class="prompt"><span class="tag">YOU ▸ Chat</span> <span class="you">저는 OOO팀의 OOO이고, OOO 업무를 담당합니다. OOO에 관심이 많고, 핵심만 간결한 표 형식의 답을 선호해요. 기억해주세요.</span></div>
-    <div class="danger"><b>주의.</b> 주민번호·고객정보·인증정보 등 민감·개인정보는 메모리에 저장하지 마세요.</div>
+    <span class="sec-tag">전체 흐름</span>
+    <h2>8단계 데모 · <span class="em">예상 소요 시간</span></h2>
+    <p class="lead">총 60분 기준입니다. ④ 영상(Veo 3), ⑥ Deep Research, ⑦ Idea Generation은 생성에 수 분~1시간이 걸리므로 <b>미리 생성한 결과</b>를 준비해 시연하세요. 시간이 밀리면 ⑦을 짧게 줄입니다.</p>
+    <table class="tl">
+      <thead><tr><th>시각</th><th>단계</th><th>기능</th><th>예상</th></tr></thead>
+      <tbody>
+        <tr><td class="t">0:00</td><td class="s">Intro</td><td>2주 사용 현황 공유 · 흐름 예고</td><td class="dur">3분</td></tr>
+        <tr><td class="t">0:03</td><td class="s">① 나를 기억시키기</td><td>첫 메시지 · Saved Memory</td><td class="dur">2분</td></tr>
+        <tr><td class="t">0:05</td><td class="s">② 검색 그라운딩</td><td>최신 뉴스 · 소스 보기</td><td class="dur">4분</td></tr>
+        <tr><td class="t">0:09</td><td class="s">③ 파일 첨부</td><td>문서 요약</td><td class="dur">4분</td></tr>
+        <tr><td class="t">0:13</td><td class="s">④ 이미지·영상</td><td>Nano Banana · Veo 3</td><td class="dur">10분</td></tr>
+        <tr><td class="t">0:23</td><td class="s">⑤ NotebookLM</td><td>YouTube 링크 기반 Q&amp;A</td><td class="dur">6분</td></tr>
+        <tr><td class="t">0:29</td><td class="s">⑥ Deep Research</td><td>시장 보고서</td><td class="dur">5분</td></tr>
+        <tr><td class="t">0:34</td><td class="s">⑦ Idea Generation</td><td>컨셉 발상·순위화</td><td class="dur">4분</td></tr>
+        <tr><td class="t">0:38</td><td class="s">⑧ No-Code Agent</td><td>일일 뉴스 브리핑 봇</td><td class="dur">8분</td></tr>
+        <tr class="sum"><td class="t">0:46</td><td class="s">Wrap-up &amp; Q&amp;A</td><td>요약 · 적용 독려 · 질의응답</td><td class="dur">6분</td></tr>
+        <tr class="sum"><td class="t">—</td><td class="s" colspan="2">합계 (버퍼 ~8분 포함)</td><td class="dur">~52분</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -200,7 +211,7 @@
   <div class="wrap">
     <span class="sec-tag">콘솔 한눈에</span>
     <h2>화면 어디에 무엇이 있나</h2>
-    <p class="lead">아래 위치만 익히면 이 가이드의 모든 기능을 찾을 수 있습니다. 각 기능 카드 상단의 <b>📍 위치</b>를 따라가세요.</p>
+    <p class="lead">각 단계 카드의 <b>📍 위치</b>를 따라가면 됩니다.</p>
     <div class="console">
       <div class="menu">
         <div class="mt">좌측 메뉴</div>
@@ -213,191 +224,223 @@
         </ul>
       </div>
       <div class="stage">
-        <div class="note">대화 영역 — AI 응답이 표시되고, 응답 하단에 '소스 보기'가 나타납니다.</div>
-        <div class="inputbar">
-          <span>＋</span><span>프롬프트를 입력하세요…</span>
-          <span class="tools">📎 🌐 🔌 ↑</span>
-        </div>
+        <div class="note">대화 영역 — 응답 하단에 '소스 보기'가 나타납니다.</div>
+        <div class="inputbar"><span>＋</span><span>프롬프트를 입력하세요…</span><span class="tools">📎 🌐 🔌 ↑</span></div>
       </div>
     </div>
     <div class="legend">
-      <span>📎 <b>파일 첨부</b> — 내 문서 업로드</span>
-      <span>🌐 <b>검색</b> — 최신 인터넷 정보 + '소스 보기'</span>
-      <span>🔌 <b>커넥터</b> — 사내 데이터 선택</span>
-      <span>↑ <b>전송</b> — 보내기 (Enter도 가능)</span>
+      <span>📎 <b>파일 첨부</b></span>
+      <span>🌐 <b>검색</b> (켜면 소스 보기 생김)</span>
+      <span>🔌 <b>커넥터</b></span>
+      <span>↑ <b>전송</b> (Enter)</span>
     </div>
   </div>
 </section>
 
-<!-- LEVEL 1 -->
-<section id="l1">
+<!-- STEP 1 -->
+<section id="s1">
   <div class="wrap">
-    <span class="sec-tag">Level 1</span>
-    <div class="levelband"><span class="badge">LEVEL 1</span>
-      <div><div class="ttl">일상 업무 자동화</div><div class="sub">매일 반복하는 검색·정리·문서 검토를 단숨에</div></div></div>
-
-    <!-- 기능1 -->
+    <span class="sec-tag">Step 1</span>
     <div class="fc">
-      <div class="fc-head"><span class="pn">기능 1</span><span class="pt">정보 검색 &amp; 요약</span><span class="gain">반나절 → 1분</span></div>
+      <div class="fc-head"><span class="pn">①</span><span class="pt">첫 메시지 · 나를 기억시키기</span><span class="time">⏱ 2분</span></div>
       <div class="fc-body">
-        <div class="loc">📍 위치 — <b>채팅 입력창</b> + 하단 <b>🌐 검색</b> 토글 ON</div>
-        <div class="ba">
-          <div class="side before"><span class="tag">Before</span><div class="h">탭 10개 띄워 헤매기</div><p>뉴스·리포트를 여러 페이지 열어가며 직접 찾고 정리.</p></div>
-          <div class="arrow">→</div>
-          <div class="side after"><span class="tag">After</span><div class="h">한 줄 질문 → 출처까지</div><p>검색을 켜고 질문하면 핵심 요약 + 근거 링크가 한 번에.</p></div>
-        </div>
-        <div class="lbl">이렇게 해보세요</div>
-        <ol class="steps">
-          <li><b>🌐 검색 토글을 켭니다</b> <span class="note">— 켜야 답변에 '소스 보기'가 생깁니다.</span></li>
-          <li><b>아래 프롬프트를 복사해 입력</b> 후 전송(↑).</li>
-          <li><b>응답 하단 '소스 보기' 클릭</b> <span class="note">— 근거 원문을 직접 확인.</span></li>
-        </ol>
-        <div class="prompt"><span class="tag">YOU ▸ Chat (🌐 ON)</span> <span class="you">최신 글로벌 전기 SUV 시장 트렌드 3가지를 한 줄씩 요약해줘. 각 트렌드의 출처 링크도 함께 보여줘.</span>
-          <span class="more">▸ 이어서: "이 중 KGM에 가장 영향이 큰 트렌드 1개를 골라 이유를 설명해줘."</span></div>
+        <div class="loc">📍 위치 — <b>채팅 입력창</b> (Saved Memory에 자동 저장)</div>
+        <p class="lead" style="margin:0 0 4px">한 번만 등록하면 이후 모든 대화에 직무·관심사·선호 톤이 자동 반영됩니다.</p>
+        <div class="prompt"><span class="tag">YOU ▸ Chat</span> <span class="you">저는 IT팀의 사용자이고, IT 업무를 담당합니다. IT 및 자동차 시장 트렌드에 관심이 많고, 보고서 형식의 요약된 답을 선호해요. 기억해주세요.</span></div>
         <div class="result"><div class="rt">이런 결과가 나와요</div>
-          <ul><li>3가지 트렌드가 한 줄 요약 + 출처 링크와 함께 정리</li><li>'소스 보기'로 원문을 클릭해 사실 검증 가능</li></ul>
-          <div class="feel">💡 효능감 — 검색·정리에 쓰던 반나절이 1분으로. 게다가 출처가 붙어 그대로 보고에 쓸 수 있어요.</div>
+          <ul><li>"기억하겠습니다" 확인 + 이후 답변이 보고서 톤으로 맞춰짐</li></ul>
+          <div class="feel">💡 효능감 — 매번 자기소개를 반복할 필요가 없어집니다.</div>
         </div>
-      </div>
-    </div>
-
-    <!-- 기능2 -->
-    <div class="fc">
-      <div class="fc-head"><span class="pn">기능 2</span><span class="pt">내 문서로 답받기 · NotebookLM</span><span class="gain">30페이지 → 5분</span></div>
-      <div class="fc-body">
-        <div class="loc">📍 위치 — <b>좌측 메뉴 ▸ NotebookLM</b> (또는 채팅 📎 파일 첨부)</div>
-        <div class="ba">
-          <div class="side before"><span class="tag">Before</span><div class="h">긴 PDF 정독</div><p>수십 페이지 보고서를 처음부터 읽으며 필요한 내용 찾기.</p></div>
-          <div class="arrow">→</div>
-          <div class="side after"><span class="tag">After</span><div class="h">자료 안에서 즉답</div><p>문서를 올리고 핵심만 질문. 업로드 자료에 한정해 답해 '우리 회사 답'이 안전.</p></div>
-        </div>
-        <div class="lbl">이렇게 해보세요</div>
-        <ol class="steps">
-          <li><b>NotebookLM ▸ + 새로 만들기</b> <span class="note">— 한 주제 = 한 노트북.</span></li>
-          <li><b>PDF·DOCX 드래그 업로드</b> (여러 개 가능).</li>
-          <li><b>핵심만 질문</b> — 아래 프롬프트.</li>
-        </ol>
-        <div class="prompt"><span class="tag">YOU ▸ NotebookLM</span> <span class="you">이 보고서에서 내 업무에 필요한 핵심 전략만 3가지로 정리하고, 각 항목의 근거 페이지를 표시해줘.</span>
-          <span class="more">▸ 이어서: "비전문가도 이해되게 쉽게 풀어서 다시 정리해줘."</span></div>
-        <div class="result"><div class="rt">이런 결과가 나와요</div>
-          <ul><li>핵심 3가지 + 각 항목의 출처 페이지 인용</li><li>긴 문서를 안 읽고도 5분 만에 요지 파악</li></ul>
-          <div class="feel">💡 효능감 — 외부 정보가 섞이지 않은 '내 자료 기반' 답이라, 인용까지 믿고 쓸 수 있어요.</div>
-        </div>
-        <div class="danger"><b>주의.</b> 고객·개인 민감정보 문서는 업로드 금지. 공개 가능한 사내 자료로만.</div>
+        <div class="danger"><b>주의.</b> 주민번호·고객정보·인증정보 등 민감·개인정보는 메모리에 저장 금지.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LEVEL 2 -->
-<section id="l2">
+<!-- STEP 2 -->
+<section id="s2">
   <div class="wrap">
-    <span class="sec-tag">Level 2</span>
-    <div class="levelband"><span class="badge">LEVEL 2</span>
-      <div><div class="ttl">콘텐츠 생성 &amp; 가공</div><div class="sub">'빈 화면의 막막함'을 없애고, AI와 함께 만든다</div></div></div>
-
-    <!-- 기능3 -->
+    <span class="sec-tag">Step 2</span>
     <div class="fc">
-      <div class="fc-head"><span class="pn">기능 3</span><span class="pt">보고서/이메일 초안 작성</span><span class="gain">30분 → 3분</span></div>
+      <div class="fc-head"><span class="pn">②</span><span class="pt">검색 그라운딩 · 소스 보기</span><span class="time">⏱ 4분</span></div>
       <div class="fc-body">
-        <div class="loc">📍 위치 — <b>채팅</b> (앞서 요약한 대화를 이어서)</div>
-        <div class="ba">
-          <div class="side before"><span class="tag">Before</span><div class="h">빈 화면 앞 막막함</div><p>백지에서 첫 문장부터 직접 쓰기 시작.</p></div>
-          <div class="arrow">→</div>
-          <div class="side after"><span class="tag">After</span><div class="h">앞 대화로 바로 초안</div><p>"방금 내용으로 초안 써줘" → 골격이 잡힌 초안에서 시작.</p></div>
-        </div>
-        <div class="lbl">이렇게 해보세요</div>
+        <div class="loc">📍 위치 — <b>채팅</b> + 하단 <b>🌐 검색</b> 토글 ON</div>
         <ol class="steps">
-          <li><b>같은 대화창에서 이어서</b> 지시 <span class="note">— 앞의 요약·자료 맥락이 그대로 활용됩니다.</span></li>
-          <li><b>초안 생성</b> — 아래 프롬프트.</li>
-          <li><b>후속 지시로 다듬기</b> — "더 짧게 / 경영진 톤으로 / 표로".</li>
+          <li><b>🌐 검색 토글 ON</b> <span class="note">— 켜야 '소스 보기'가 생깁니다.</span></li>
+          <li><b>프롬프트 입력 후 전송</b> <span class="note">— Step 1의 메모리가 반영돼 IT·자동차 뉴스가 우선 추천됩니다.</span></li>
+          <li><b>응답 하단 '소스 보기' 클릭</b> <span class="note">— 근거 원문 확인.</span></li>
         </ol>
-        <div class="prompt"><span class="tag">YOU ▸ Chat</span> <span class="you">방금 정리한 시장 트렌드와 핵심 전략을 바탕으로 내부 보고용 1페이지 초안을 작성해줘. 제목 · 핵심요약(3줄) · 시사점 순서로.</span>
-          <span class="more">▸ 이어서: "팀장 보고용으로 더 간결하게, 마지막에 다음 액션 3가지를 추가해줘."</span></div>
+        <div class="prompt"><span class="tag">YOU ▸ Chat (🌐 ON)</span> <span class="you">제가 관심있어 할 만한 최신 뉴스가 있다면 알려주세요.</span></div>
         <div class="result"><div class="rt">이런 결과가 나와요</div>
-          <ul><li>제목·요약·시사점 구조가 잡힌 보고 초안 즉시 생성</li><li>후속 한마디로 톤·길이·형식까지 자유롭게 조정</li></ul>
-          <div class="feel">💡 효능감 — 가장 어려운 '첫 문장'을 건너뛰고, 다듬기부터 시작합니다.</div>
+          <ul><li>메모리(IT·자동차)에 맞춘 최신 뉴스 + 출처 링크</li><li>'소스 보기'로 원문 검증 가능</li></ul>
+          <div class="feel">💡 효능감 — 검색·정리에 쓰던 반나절이 1분으로. 게다가 '나에게 맞춘' 뉴스가 옵니다.</div>
         </div>
+        <div class="tip"><b>연결 포인트.</b> Step 1 → Step 2로 이어 보여주면 "메모리가 실제로 동작한다"가 한눈에 증명됩니다.</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- 기능4 -->
+<!-- STEP 3 -->
+<section id="s3">
+  <div class="wrap">
+    <span class="sec-tag">Step 3</span>
     <div class="fc">
-      <div class="fc-head"><span class="pn">기능 4</span><span class="pt">아이디어 발상 · Idea Generation</span><span class="gain">혼자 5개 → 수십 개 순위화</span></div>
+      <div class="fc-head"><span class="pn">③</span><span class="pt">파일 첨부 · 문서 요약</span><span class="time">⏱ 4분</span></div>
+      <div class="fc-body">
+        <div class="loc">📍 위치 — <b>채팅 입력창 ▸ 📎 파일 첨부</b></div>
+        <ol class="steps">
+          <li><b>📎 클릭 → 파일 업로드</b> <span class="note">— PDF·DOCX·XLSX·이미지 (여러 개 가능).</span></li>
+          <li><b>요약 요청</b> — 아래 프롬프트.</li>
+        </ol>
+        <div class="prompt"><span class="tag">YOU ▸ Chat (📎)</span> <span class="you">첨부한 문서 요약정리해줘</span>
+        </div>
+        <div class="result"><div class="rt">이런 결과가 나와요</div>
+          <ul><li>핵심 요지가 보고서 톤으로 정리 (메모리 반영)</li><li>후속 지시로 "표로 / 더 짧게" 조정 가능</li></ul>
+          <div class="feel">💡 효능감 — 긴 문서를 안 읽고도 30초 만에 요지 파악.</div>
+        </div>
+        <div class="danger"><b>주의.</b> 고객·개인 민감정보 문서는 업로드 금지. 공개 가능한 자료로 시연.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section id="s4">
+  <div class="wrap">
+    <span class="sec-tag">Step 4</span>
+    <div class="fc">
+      <div class="fc-head"><span class="pn">④</span><span class="pt">이미지 생성 (Nano Banana) · 영상 생성 (Veo 3)</span><span class="time">⏱ 10분</span></div>
+      <div class="fc-body">
+        <div class="loc">📍 위치 — <b>채팅</b> (자연어로 "…만들어줘")</div>
+        <p class="lead" style="margin:0 0 6px">이미지는 즉시(수십 초) 생성됩니다. 영상(Veo 3)은 클립당 1~3분 걸리니 <b>미리 1개를 생성해 두고</b> 시연하세요.</p>
+
+        <div class="lbl">A. 이미지 — Nano Banana</div>
+        <div class="prompt"><span class="tag">YOU ▸ Chat</span> <span class="you">트렌드에 맞는 자동차 이미지 만들어줘</span></div>
+        <p class="plabel"><span class="ko">프롬프트 1.</span> 도심 라이프스타일 (가장 무난한 상업 톤)</p>
+        <div class="prompt en"><span class="tag">PROMPT 1</span>Photorealistic commercial photograph of a modern white SUV parked on a clean city street at golden hour. Shot on a 50mm lens, shallow depth of field, soft natural sunlight, warm tones. The car is the clear focus, with a slightly blurred urban background of cafes and trees. Editorial automotive photography style, high detail on paint and wheels, no neon, no futuristic elements, realistic and grounded.</div>
+        <p class="plabel"><span class="ko">프롬프트 2.</span> 스튜디오 제품컷 (카탈로그/브로슈어용)</p>
+        <div class="prompt en"><span class="tag">PROMPT 2</span>Studio product photograph of a silver sedan on a seamless light grey background. Professional automotive studio lighting with soft gradient reflections on the body. Three-quarter front angle, clean and minimal, subtle floor reflection. Catalog-style, crisp focus throughout, neutral color grade, photorealistic.</div>
+        <p class="plabel"><span class="ko">프롬프트 3.</span> 자연 배경 감성 (브랜드 이미지용)</p>
+        <div class="prompt en"><span class="tag">PROMPT 3</span>A dark green crossover SUV on a quiet coastal road at sunrise, mountains softly in the background. Cinematic but natural lighting, warm muted color palette, gentle morning haze. Wide landscape shot, 35mm lens. Lifestyle automotive advertising aesthetic, photorealistic, calm and premium mood, not futuristic.</div>
+        <p class="plabel"><span class="ko">프롬프트 4.</span> 패밀리/실용 톤 (대중 타깃)</p>
+        <div class="prompt en"><span class="tag">PROMPT 4</span>A beige minivan parked in front of a suburban house on a sunny afternoon, a family loading bags into the trunk. Bright cheerful daylight, natural candid feel, warm and friendly atmosphere. Realistic advertising photograph, everyday and relatable, soft shadows.</div>
+        <div class="tip"><b>시연 팁.</b> 4개 중 1~2개만 시연하고, "색을 더 따뜻하게 / 텍스트 빼줘"처럼 <b>자연어 편집</b>을 한 번 보여주면 효능감이 큽니다.</div>
+
+        <div class="lbl">B. 영상 — Veo 3 (하이브리드 차량 광고)</div>
+        <div class="prompt"><span class="tag">YOU ▸ Chat</span> <span class="you">하이브리드 차량 광고 영상 만들어줘</span></div>
+        <p class="plabel"><span class="ko">샷 1.</span> 오프닝 (질주/존재감)</p>
+        <div class="prompt en"><span class="tag">SHOT 1</span>Cinematic automotive commercial. A matte-black mid-size SUV driving along an empty coastal highway at golden hour. Low tracking shot from a camera car, slightly behind and below the vehicle, 35mm anamorphic lens, shallow depth of field. Warm low-angle sunlight creating long lens flares across the frame. The car's surface reflects the orange sky. Smooth gimbal motion, no camera shake. Subtle road noise and a deep, refined engine hum. 4K, photorealistic, high dynamic range, commercial color grade with teal-orange tones.</div>
+        <p class="plabel"><span class="ko">샷 2.</span> 디테일/질감 (제품미)</p>
+        <div class="prompt en"><span class="tag">SHOT 2</span>Extreme close-up macro shots of a luxury SUV: water droplets sliding off the polished hood, LED headlight illuminating, alloy wheel spinning slowly. Studio lighting with controlled soft reflections on the metallic paint. Slow dolly-in. Slow motion at 120fps feel. Clean reflective surfaces, no logos. Quiet ambient soundscape with a single soft mechanical click as the door handle extends.</div>
+        <p class="plabel"><span class="ko">샷 3.</span> 주행 다이내믹 (성능)</p>
+        <div class="prompt en"><span class="tag">SHOT 3</span>A silver SUV taking a sweeping mountain curve, shot from a drone descending and orbiting the vehicle. Crisp daylight, dramatic mountain backdrop, motion blur on the road surface only, vehicle in sharp focus. Confident, controlled cornering. Cinematic wide shot, 24mm lens. Building orchestral score with rhythmic percussion, tires gripping the asphalt.</div>
+        <p class="plabel"><span class="ko">샷 4.</span> 인테리어/감성 (라이프스타일)</p>
+        <div class="prompt en"><span class="tag">SHOT 4</span>Interior of a modern SUV at dusk, a driver's hands resting calmly on the steering wheel, ambient cabin lighting glowing softly. Over-the-shoulder shot through the windshield showing city lights blurring into bokeh. Warm, intimate mood. Slow rack focus from dashboard to the road ahead. Soft electronic ambient music, gentle hum of a quiet electric motor.</div>
+        <p class="plabel"><span class="ko">샷 5.</span> 클로징 (브랜드 모먼트)</p>
+        <div class="prompt en"><span class="tag">SHOT 5</span>The SUV parked on a rooftop overlooking a glowing nighttime cityscape, hero three-quarter front angle. Slow push-in. Dramatic rim lighting outlining the silhouette, deep shadows, cinematic. The headlights switch on with a subtle flare. Music swells to a clean resolved note, then silence. Premium, aspirational tone.</div>
+
+        <div class="result"><div class="rt">이런 결과가 나와요</div>
+          <ul><li>발표·SNS·광고 시안용 이미지가 즉시 생성</li><li>Veo 3로 6~10초 시네마틱 클립 (음향 포함) 생성</li></ul>
+          <div class="feel">💡 효능감 — 디자인·영상 외주 없이, 머릿속 장면을 분 단위로 시안화.</div>
+        </div>
+        <div class="danger"><b>주의.</b> 실존 인물·브랜드 로고·타사 디자인 합성은 저작권·초상권 유의. 시연은 가상 차량으로.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 5 -->
+<section id="s5">
+  <div class="wrap">
+    <span class="sec-tag">Step 5</span>
+    <div class="fc">
+      <div class="fc-head"><span class="pn">⑤</span><span class="pt">NotebookLM · 링크(YouTube) 기반 Q&amp;A</span><span class="time">⏱ 6분</span></div>
+      <div class="fc-body">
+        <div class="loc">📍 위치 — <b>좌측 메뉴 ▸ NotebookLM ▸ + 새로 만들기 ▸ 소스 추가(링크)</b></div>
+        <ol class="steps">
+          <li><b>새 노트북 생성</b> → 소스 추가에서 <b>YouTube 링크</b> 붙여넣기 <span class="note">— 처리에 약간 시간 소요.</span></li>
+          <li><b>자료 기반 질문</b> — 영상 내용에 한정해 답하고, 스튜디오로 요약·오디오 생성 가능.</li>
+        </ol>
+        <div class="prompt"><span class="tag">SOURCES ▸ NotebookLM</span> <span class="you">https://www.youtube.com/watch?v=gwukndIw7TQ
+https://www.youtube.com/watch?v=4TTQfMYrKQw
+https://www.youtube.com/watch?v=V0DFkTFe1Ok</span></div>
+        <div class="prompt"><span class="tag">YOU ▸ NotebookLM</span> <span class="you">이 영상들의 핵심 내용을 비교해서 보고서 형식으로 정리하고, 각 요점의 출처(영상)를 표시해줘.</span></div>
+        <div class="result"><div class="rt">이런 결과가 나와요</div>
+          <ul><li>여러 영상을 한 번에 비교·요약, 근거 출처(영상) 인용</li><li>스튜디오 기능으로 요약·오디오 개요 생성</li></ul>
+          <div class="feel">💡 효능감 — 영상 3개를 다 볼 필요 없이, 자료에 한정된 신뢰 가능한 답.</div>
+        </div>
+        <div class="tip"><b>시연 팁.</b> 링크 처리에 시간이 걸리니 노트북을 <b>미리 만들어 두고</b> 질문부터 보여주세요.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 6 -->
+<section id="s6">
+  <div class="wrap">
+    <span class="sec-tag">Step 6</span>
+    <div class="fc">
+      <div class="fc-head"><span class="pn">⑥</span><span class="pt">Deep Research · 시장 보고서</span><span class="time">⏱ 5분</span></div>
+      <div class="fc-body">
+        <div class="loc">📍 위치 — <b>좌측 메뉴 ▸ Deep Research</b></div>
+        <ol class="steps">
+          <li><b>주제 입력</b> → AI가 <b>'연구 계획'</b>을 먼저 제시.</li>
+          <li><b>계획 검토·수정 후 Start</b> <span class="note">— 30분~1시간 소요. 미리 생성한 결과로 시연.</span></li>
+        </ol>
+        <div class="prompt"><span class="tag">YOU ▸ Deep Research</span> <span class="you">'26년 1분기 글로벌 전기 SUV 시장'의 ①시장 규모/성장률 ②Top 5 OEM 전략 비교 ③KGM 시사점을 보고서로 작성해줘.</span></div>
+        <div class="result"><div class="rt">이런 결과가 나와요</div>
+          <ul><li>출처가 달린 구조화 보고서(규모·경쟁·시사점)</li><li>'연구 계획'을 먼저 확인해 방향을 통제</li></ul>
+          <div class="feel">💡 효능감 — 임원 보고용 시장 조사를, 사람 손으로 며칠 걸릴 일을 자동으로.</div>
+        </div>
+        <div class="tip"><b>시연 팁.</b> 실제 생성은 길어, 화면에선 '계획 단계'만 보여주고 <b>미리 만든 완성 보고서</b>로 전환하세요.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 7 -->
+<section id="s7">
+  <div class="wrap">
+    <span class="sec-tag">Step 7</span>
+    <div class="fc">
+      <div class="fc-head"><span class="pn">⑦</span><span class="pt">Idea Generation · 컨셉 발상</span><span class="time">⏱ 4분</span></div>
       <div class="fc-body">
         <div class="loc">📍 위치 — <b>좌측 메뉴 ▸ Idea Generation</b></div>
-        <div class="ba">
-          <div class="side before"><span class="tag">Before</span><div class="h">회의실 브레인스토밍</div><p>사람 모으고 화이트보드 앞에서 쥐어짜기.</p></div>
-          <div class="arrow">→</div>
-          <div class="side after"><span class="tag">After</span><div class="h">관점부터 잡고 대량 발상</div><p>발상 관점(Idea Map)을 먼저 제안 → 승인하면 수십~수백 개를 점수로 순위화.</p></div>
-        </div>
-        <div class="lbl">이렇게 해보세요</div>
         <ol class="steps">
-          <li><b>Idea Generation 진입</b> → 주제 입력.</li>
-          <li><b>Idea Map 확인 후 승인</b> <span class="note">— '어떤 관점으로 발상할지'를 먼저 제안합니다.</span></li>
-          <li><b>순위화된 결과 확인</b> <span class="note">— 약 1시간 소요·영문 출력. 켜두고 다른 일 하세요.</span></li>
+          <li><b>주제 입력</b> → <b>Idea Map</b>(발상 관점)을 먼저 제안.</li>
+          <li><b>승인 후 순위화 결과 확인</b> <span class="note">— 약 1시간·영문 출력. 미리 생성한 결과로 시연.</span></li>
         </ol>
-        <div class="prompt"><span class="tag">YOU ▸ Idea Generation</span> <span class="you">MZ세대를 위한 새로운 전기 SUV 컨셉 아이디어 10가지를 제안해줘. 각 아이디어 — ①컨셉 ②타겟 ③차별화 포인트.</span></div>
+        <div class="prompt"><span class="tag">YOU ▸ Idea Generation</span> <span class="you">2030년대 MZ세대를 위한 새로운 전기 SUV 컨셉을 발상해줘. 각 아이디어 — ①컨셉 ②타겟 ③차별화 포인트.</span></div>
         <div class="result"><div class="rt">이런 결과가 나와요</div>
-          <ul><li>발상 관점 지도(Idea Map) → 승인 → 수십 개 아이디어를 점수로 정렬</li><li>상위 아이디어를 골라 기능 3(초안)으로 바로 연결 가능</li></ul>
-          <div class="feel">💡 효능감 — 내 아이디어에 AI 아이디어를 더해 발상의 폭이 한 번에 넓어집니다.</div>
+          <ul><li>발상 관점 지도 → 승인 → 수십 개 컨셉을 점수로 순위화</li><li>상위 아이디어를 보고서 초안으로 바로 연결 가능</li></ul>
+          <div class="feel">💡 효능감 — 혼자 5개가 → 관점별 수십 개 순위화로 확장.</div>
         </div>
-      </div>
-    </div>
-
-    <!-- 기능5 (bonus) -->
-    <div class="fc">
-      <div class="fc-head"><span class="pn">기능 5</span><span class="pt">이미지 생성 · Nano Banana</span><span class="gain">외주 의뢰 → 30초</span></div>
-      <div class="fc-body">
-        <div class="loc">📍 위치 — <b>채팅</b> (자연어로 "…이미지 만들어줘")</div>
-        <div class="ba">
-          <div class="side before"><span class="tag">Before</span><div class="h">디자인 외주·검색</div><p>발표·SNS용 비주얼을 외부에 의뢰하거나 무료 이미지 검색.</p></div>
-          <div class="arrow">→</div>
-          <div class="side after"><span class="tag">After</span><div class="h">말로 그리고 말로 수정</div><p>프롬프트로 즉시 생성, "색을 더 따뜻하게"처럼 자연어로 편집.</p></div>
-        </div>
-        <div class="lbl">이렇게 해보세요</div>
-        <ol class="steps">
-          <li><b>용도·스타일·비율을 담아 요청</b> — 아래 프롬프트.</li>
-          <li><b>자연어로 수정</b> — "텍스트 빼줘 / 더 미니멀하게".</li>
-        </ol>
-        <div class="prompt"><span class="tag">YOU ▸ Chat</span> <span class="you">신차 출시 SNS 배너 이미지를 만들어줘. 도심 야경 + 전기 SUV, 정사각형 비율, 미래적이고 세련된 분위기.</span></div>
-        <div class="result"><div class="rt">이런 결과가 나와요</div>
-          <ul><li>발표·SNS에 바로 쓸 시안 이미지 즉시 생성</li><li>마음에 들 때까지 대화로 미세 조정</li></ul>
-          <div class="feel">💡 효능감 — 디자인을 못 해도, 머릿속 이미지를 30초 만에 시안으로.</div>
-        </div>
-        <div class="danger"><b>주의.</b> 실존 인물·로고 합성은 저작권·초상권에 유의하세요.</div>
+        <div class="tip"><b>출력 언어.</b> 영문으로 나오니, "한국어로 번역해줘" 후속 지시를 함께 보여주세요.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LEVEL 3 -->
-<section id="l3">
+<!-- STEP 8 -->
+<section id="s8">
   <div class="wrap">
-    <span class="sec-tag">Level 3</span>
-    <div class="levelband"><span class="badge">LEVEL 3</span>
-      <div><div class="ttl">나만의 AI 비서 만들기</div><div class="sub">코딩 없이, 자연어 한 문장으로 반복 업무를 자동화</div></div></div>
-
-    <!-- 기능6 -->
+    <span class="sec-tag">Step 8</span>
     <div class="fc">
-      <div class="fc-head"><span class="pn">기능 6</span><span class="pt">No-Code 에이전트 생성</span><span class="gain">매일 수동 → 자동 반복</span></div>
+      <div class="fc-head"><span class="pn">⑧</span><span class="pt">No-Code Agent · 일일 뉴스 브리핑 봇</span><span class="time">⏱ 8분</span></div>
       <div class="fc-body">
         <div class="loc">📍 위치 — <b>좌측 메뉴 ▸ Agents ▸ 새 에이전트</b></div>
-        <div class="ba">
-          <div class="side before"><span class="tag">Before</span><div class="h">매일 반복하는 루틴</div><p>아침마다 뉴스 검색, 매주 같은 자료 정리를 사람이 직접.</p></div>
-          <div class="arrow">→</div>
-          <div class="side after"><span class="tag">After</span><div class="h">한 문장으로 비서 생성</div><p>"매일 아침 ○○ 요약해줘"라고 쓰면 에이전트가 만들어져 자동 실행.</p></div>
-        </div>
-        <div class="lbl">이렇게 해보세요</div>
+        <p class="lead" style="margin:0 0 6px">오늘의 하이라이트. 코딩 없이 자연어로 <b>입력 → 처리 → 출력</b>을 정의하면 매일 자동 실행되는 봇이 만들어집니다.</p>
+        <div class="lbl">한 문장 정의 (전체 지시)</div>
+        <div class="prompt"><span class="tag">YOU ▸ Agent</span> <span class="you">매일 아침 Google Search를 사용하여 'KGM 신차 출시 및 전기차 신기술'에 대한 어제자 최신 뉴스 3건을 검색해 줘. 그리고 검색된 뉴스의 핵심 내용을 요약하여 문서 생성(generate_document) 도구로 일일 뉴스 브리핑 문서를 만들어줘.</span></div>
+        <div class="lbl">단계별 정의 (입력 · 처리 · 출력)</div>
         <ol class="steps">
-          <li><b>Agents ▸ 새 에이전트</b> 진입.</li>
-          <li><b>'무엇·언제·어디로'를 한 문장</b>으로 입력 — 아래 프롬프트.</li>
-          <li><b>이름 붙이고 저장</b> <span class="note">— 이름 없는 '내 에이전트'로 두지 말고 완성해 재사용.</span></li>
+          <li><b>입력(Input)</b><br><span class="note">"Google Search를 사용하여 'KGM 신차 및 전기차 기술 뉴스'에 대한 어제자 최신 뉴스 3건을 검색해 줘."</span></li>
+          <li><b>처리(Processing)</b><br><span class="note">"검색된 뉴스의 핵심 내용을 짧게 요약해 줘."</span></li>
+          <li><b>출력(Output)</b><br><span class="note">"요약된 내용을 바탕으로 뉴스 브리핑 문서를 생성(generate_document)해 줘."</span></li>
         </ol>
-        <div class="prompt"><span class="tag">YOU ▸ Agent</span> <span class="you">매일 아침 'KGM 신차 출시' 관련 최신 뉴스 3개를 검색해서 핵심만 요약해줘. 결과는 제목 · 요약 · 출처 링크 형태로.</span>
-          <span class="more">▸ 다른 예: "매주 월요일, 첨부한 회의록에서 담당자별 액션아이템(담당·기한)을 표로 정리해줘."</span></div>
         <div class="result"><div class="rt">이런 결과가 나와요</div>
-          <ul><li>한 문장으로 '일일 브리핑 에이전트'가 즉석 생성</li><li>매번 시키지 않아도 같은 일을 알아서 반복</li></ul>
+          <ul><li>검색 → 요약 → 문서 생성을 자동으로 수행하는 에이전트</li><li>이름 붙이고 스케줄을 걸면 매일 아침 브리핑이 자동 생성</li></ul>
           <div class="feel">💡 효능감 — 'AI를 쓴다'에서 'AI를 관리한다'로. 반복 업무가 내 손을 떠납니다.</div>
         </div>
         <div class="danger"><b>주의.</b> 민감정보를 자동 처리하는 에이전트는 만들지 마세요. 비민감 반복 업무로 한정.</div>
@@ -439,19 +482,19 @@
   <div class="wrap">
     <span class="sec-tag">오늘부터</span>
     <h2>다음 스텝 — <span class="em">내 업무에 적용</span></h2>
-    <p class="lead">"오늘 본 일일 뉴스 브리핑 에이전트처럼, 지금 당장 자동화하고 싶은 내 업무는 무엇인가요?" 그 하나를 직접 만들어 보면 오늘 교육이 진짜 내 것이 됩니다.</p>
+    <p class="lead">"오늘 본 일일 뉴스 브리핑 에이전트처럼, 지금 당장 자동화하고 싶은 내 업무는 무엇인가요?"</p>
     <div class="next">
-      <div class="n"><div class="w">오늘</div><p>자기소개를 메모리에 등록 (시작 1분 카드)</p></div>
-      <div class="n"><div class="w">이번 주</div><p>Level 1~2 중 1개를 내 실제 업무에 적용</p></div>
-      <div class="n"><div class="w">이번 달</div><p>반복 업무 1개를 에이전트로 자동화 + 우수 사례 사내 공유</p></div>
+      <div class="n"><div class="w">오늘</div><p>자기소개를 메모리에 등록 (Step 1)</p></div>
+      <div class="n"><div class="w">이번 주</div><p>Step 2~5 중 1개를 내 실제 업무에 적용</p></div>
+      <div class="n"><div class="w">이번 달</div><p>반복 업무 1개를 에이전트로 자동화 + 사내 공유</p></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>KG MOBILITY × LG CNS · Gemini Enterprise — 사용자 핸즈온 가이드</span>
-    <span>CONFIDENTIAL · v3.0</span>
+    <span>KG MOBILITY × LG CNS · Gemini Enterprise — 데모 시나리오 &amp; 핸즈온 가이드</span>
+    <span>CONFIDENTIAL · v4.0</span>
   </div>
 </footer>
 
